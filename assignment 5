@@ -1,0 +1,63 @@
+import java.util.Scanner;
+
+class Tring {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        
+        // Ask the user for the number of nodes
+        System.out.print("Enter the number of nodes: ");
+        int n = sc.nextInt();
+        
+        // Display the ring of nodes
+        System.out.print("Ring: ");
+        for (int i = 0; i < n; i++) {
+            System.out.print(" " + i);
+        }
+        System.out.println(" " + 0);
+        
+        int token = 0;
+        int sender, receiver;
+        String data;
+        
+        try {
+            while (true) {
+                // Ask the user for sender, receiver, and data
+                System.out.print("Enter sender (0 to " + (n - 1) + "): ");
+                sender = sc.nextInt();
+                
+                System.out.print("Enter receiver (0 to " + (n - 1) + "): ");
+                receiver = sc.nextInt();
+                
+                System.out.print("Enter data: ");
+                data = sc.next();
+                
+                // Token passing simulation
+                System.out.print("Token passing: ");
+                
+                // Pass token from the current token position to the sender
+                for (int i = token, j = token; (i % n) != sender; i++, j = (j + 1) % n) {
+                    System.out.print(j + " -> ");
+                }
+                System.out.println(sender);
+                
+                // Sender sends data and forward it through the ring until receiver is reached
+                System.out.println("Sender " + sender + " sending data: " + data);
+                
+                for (int i = (sender + 1) % n; i != receiver; i = (i + 1) % n) {
+                    System.out.println("Data " + data + " forwarded by " + i);
+                }
+                
+                // Receiver receives data
+                System.out.println("Receiver " + receiver + " received data: " + data);
+                
+                // Update token position to the sender
+                token = sender;
+            }
+        } catch (Exception e) {
+            System.out.println("Error occurred: " + e.getMessage());
+        } finally {
+            sc.close(); // Close the scanner
+        }
+    }
+}
+
