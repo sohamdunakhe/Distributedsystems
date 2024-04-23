@@ -1,0 +1,61 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class BullyAlgorithm {
+    private int processId;
+    private List<Integer> processes;
+
+    public BullyAlgorithm(int processId, List<Integer> processes) {
+        this.processId = processId;
+        this.processes = processes;
+    }
+
+    public void startElection() {
+        System.out.println("Process " + processId + " initiates election.");
+
+        int maxProcessId = processId;
+
+        // Send election messages to processes with higher IDs
+        for (int p : processes) {
+            if (p > processId) {
+                // Send election message to process p
+                System.out.println("Process " + processId + " sends election message to Process " + p);
+            }
+        }
+
+        // Receive OK messages from processes with higher IDs
+        for (int p : processes) {
+            if (p > processId) {
+                // Receive OK message from process p
+                System.out.println("Process " + processId + " receives OK message from Process " + p);
+
+                // Check if p has a higher priority
+                if (p > maxProcessId) {
+                    maxProcessId = p;
+                }
+            }
+        }
+
+        // Declare self as leader
+        System.out.println("Process " + processId + " declares itself as the leader.");
+
+        // Notify other processes about the new leader
+        for (int p : processes) {
+            if (p != processId) {
+                // Notify process p about the new leader
+                System.out.println("Process " + processId + " notifies Process " + p + " about the new leader " + maxProcessId);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        List<Integer> processes = new ArrayList<>();
+        processes.add(1);
+        processes.add(2);
+        processes.add(3);
+        processes.add(4);
+
+        BullyAlgorithm bullyAlgorithm = new BullyAlgorithm(3, processes);
+        bullyAlgorithm.startElection();
+    }
+}
