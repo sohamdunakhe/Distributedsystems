@@ -50,7 +50,7 @@ System.out.print(" ]\n");
 void initElection(int process_id) { 
 if(processes[process_id-1]) {
 pid.add(process_id); 
-inttemp = process_id;
+int temp = process_id;
 System.out.print("Process P" + process_id + " sending the following list:- "); 
 displayArrayList(pid);
 while(temp != process_id - 1) { 
@@ -62,8 +62,8 @@ displayArrayList(pid);
 temp = (temp + 1) % max_processes;
 }
 coordinator = Collections.max(pid);
-System.out.println("Process P" + process_id + " has declared P" + coordinator + " as the 
-coordinator");
+System.out.println("Process P" + process_id + " has declared P" + coordinator + " as the coordinator");
+
 pid.clear();
 }
 }
@@ -116,4 +116,5 @@ break;
 }
 }
 }
+
 
